@@ -117,6 +117,7 @@ class ContentReader {
       case "image/gif":
         return EpubContentType.IMAGE_GIF;
       case "image/jpeg":
+      case "image/jpg":
         return EpubContentType.IMAGE_JPEG;
       case "image/png":
         return EpubContentType.IMAGE_PNG;
