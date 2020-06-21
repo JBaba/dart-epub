@@ -74,4 +74,14 @@ main() async {
       }
     });
   });
+
+  test("Test Epub Sub Ref", () async {
+    String fullPath = "/home/jbaba/Downloads/Destiny's Crucible/The Dark Forest - Cixin Liu.epub";
+    var targetFile = new io.File(fullPath);
+    List<int> bytes = await targetFile.readAsBytes();
+    EpubBookRef epubRef = await EpubReader.openBook(bytes);
+
+    expect(epubRef.Author, equals("John S. Hittell"));
+    expect(epubRef.Title, equals("Hittel on Gold Mines and Mining"));
+  });
 }

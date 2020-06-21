@@ -24,6 +24,7 @@ import '../schema/opf/epub_package.dart';
 import '../utils/enum_from_string.dart';
 import '../utils/zip_path_utils.dart';
 
+
 class NavigationReader {
   static Future<EpubNavigation> readNavigation(Archive epubArchive,
       String contentDirectoryPath, EpubPackage package) async {

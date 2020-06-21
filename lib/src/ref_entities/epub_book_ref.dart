@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:archive/archive.dart';
+import 'package:epub/src/schema/opf/epub_manifest.dart';
+import 'package:epub/src/schema/opf/epub_spine.dart';
 import 'package:image/image.dart';
 import 'package:quiver/collection.dart' as collections;
 import 'package:quiver/core.dart';
@@ -50,6 +52,14 @@ class EpubBookRef {
 
   Future<List<EpubChapterRef>> getChapters() async {
     return await ChapterReader.getChapters(this);
+  }
+
+  Future<EpubSpine> getSpine() async {
+    return Schema.Package.Spine;
+  }
+
+  Future<EpubManifest> getManifest() async {
+    return Schema.Package.Manifest;
   }
 
   Future<Image> readCover() async {

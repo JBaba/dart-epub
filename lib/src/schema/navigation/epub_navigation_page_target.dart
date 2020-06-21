@@ -42,4 +42,8 @@ class EpubNavigationPageTarget {
 
     return collections.listsEqual(NavigationLabels, otherAs.NavigationLabels);
   }
+
+  String toString() {
+    return 'Id: $Id, Value: $Value, Type: $Type, Class: $Class, PlayOrder: $PlayOrder, Content: $Content';
+  }
 }

@@ -12,6 +12,7 @@ class EpubChapterRef {
   String ContentFileName;
   String Anchor;
   List<EpubChapterRef> SubChapters;
+  bool isPartOfNcx = true;
 
   EpubChapterRef(EpubTextContentFileRef epubTextContentFileRef) {
     this.epubTextContentFileRef = epubTextContentFileRef;
