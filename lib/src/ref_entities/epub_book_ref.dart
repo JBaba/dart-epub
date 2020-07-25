@@ -1,13 +1,11 @@
 import 'dart:async';
 
 import 'package:archive/archive.dart';
-import 'package:epub/src/schema/opf/epub_manifest.dart';
-import 'package:epub/src/schema/opf/epub_spine.dart';
-import 'package:image/image.dart';
 import 'package:quiver/collection.dart' as collections;
 import 'package:quiver/core.dart';
 
 import '../entities/epub_schema.dart';
+import '../ref_entities/epub_image_ref.dart';
 import '../readers/book_cover_reader.dart';
 import '../readers/chapter_reader.dart';
 import 'epub_chapter_ref.dart';
@@ -54,15 +52,7 @@ class EpubBookRef {
     return await ChapterReader.getChapters(this);
   }
 
-  Future<EpubSpine> getSpine() async {
-    return Schema.Package.Spine;
-  }
-
-  Future<EpubManifest> getManifest() async {
-    return Schema.Package.Manifest;
-  }
-
-  Future<Image> readCover() async {
+  Future<EpubImageRef> readCover() async {
     return await BookCoverReader.readBookCover(this);
   }
 }

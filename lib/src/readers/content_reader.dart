@@ -51,6 +51,7 @@ class ContentReader {
             case EpubContentType.OEB1_CSS:
             case EpubContentType.IMAGE_GIF:
             case EpubContentType.IMAGE_JPEG:
+            case EpubContentType.IMAGE_JPG:
             case EpubContentType.IMAGE_PNG:
             case EpubContentType.IMAGE_SVG:
             case EpubContentType.FONT_TRUETYPE:
@@ -72,6 +73,7 @@ class ContentReader {
           switch (contentType) {
             case EpubContentType.IMAGE_GIF:
             case EpubContentType.IMAGE_JPEG:
+            case EpubContentType.IMAGE_JPG:
             case EpubContentType.IMAGE_PNG:
             case EpubContentType.IMAGE_SVG:
               result.Images[fileName] = epubByteContentFile;
@@ -117,8 +119,9 @@ class ContentReader {
       case "image/gif":
         return EpubContentType.IMAGE_GIF;
       case "image/jpeg":
-      case "image/jpg":
         return EpubContentType.IMAGE_JPEG;
+      case "image/jpg":
+        return EpubContentType.IMAGE_JPG;
       case "image/png":
         return EpubContentType.IMAGE_PNG;
       case "image/svg+xml":

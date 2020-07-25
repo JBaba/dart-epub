@@ -8,6 +8,7 @@ enum EpubContentType {
   OEB1_CSS,
   IMAGE_GIF,
   IMAGE_JPEG,
+  IMAGE_JPG,
   IMAGE_PNG,
   IMAGE_SVG,
   FONT_TRUETYPE,
