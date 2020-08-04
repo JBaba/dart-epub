@@ -17,6 +17,7 @@ class SchemaReader {
     String rootFilePath = await RootFilePathReader.getRootFilePath(epubArchive);
     String contentDirectoryPath = ZipPathUtils.getDirectoryPath(rootFilePath);
     result.ContentDirectoryPath = contentDirectoryPath;
+    result.ContainerRootPath = rootFilePath;
 
     EpubPackage package =
         await PackageReader.readPackage(epubArchive, rootFilePath);

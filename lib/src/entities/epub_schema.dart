@@ -7,6 +7,9 @@ class EpubSchema {
   EpubPackage Package;
   EpubNavigation Navigation;
   String ContentDirectoryPath;
+  // opf file can have prefix path
+  // eg. opf file is in sub folder "OEBPS/....<all other content goes here>"
+  String ContainerRootPath;
 
   @override
   int get hashCode => hash3(

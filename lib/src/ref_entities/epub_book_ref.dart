@@ -13,7 +13,6 @@ import 'epub_content_ref.dart';
 
 class EpubBookRef {
   Archive _epubArchive;
-
   String Title;
   String Author;
   List<String> AuthorList;
