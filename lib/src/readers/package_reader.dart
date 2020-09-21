@@ -182,13 +182,8 @@ class PackageReader {
           result.Rights.add(innerText);
           break;
         case "meta":
-          if (epubVersion == EpubVersion.Epub2) {
-            EpubMetadataMeta meta = readMetadataMetaVersion2(metadataItemNode);
-            result.MetaItems.add(meta);
-          } else if (epubVersion == EpubVersion.Epub3) {
-            EpubMetadataMeta meta = readMetadataMetaVersion3(metadataItemNode);
-            result.MetaItems.add(meta);
-          }
+          EpubMetadataMeta meta = readMetadataMetaVersion2and3(metadataItemNode);
+          result.MetaItems.add(meta);
           break;
       }
     });
@@ -263,7 +258,7 @@ class PackageReader {
     return result;
   }
 
-  static EpubMetadataMeta readMetadataMetaVersion2(
+  static EpubMetadataMeta readMetadataMetaVersion2and3(
       xml.XmlElement metadataMetaNode) {
     EpubMetadataMeta result = EpubMetadataMeta();
     metadataMetaNode.attributes
@@ -276,18 +271,6 @@ class PackageReader {
         case "content":
           result.Content = attributeValue;
           break;
-      }
-    });
-    return result;
-  }
-
-  static EpubMetadataMeta readMetadataMetaVersion3(
-      xml.XmlElement metadataMetaNode) {
-    EpubMetadataMeta result = EpubMetadataMeta();
-    metadataMetaNode.attributes
-        .forEach((xml.XmlAttribute metadataMetaNodeAttribute) {
-      String attributeValue = metadataMetaNodeAttribute.value;
-      switch (metadataMetaNodeAttribute.name.local.toLowerCase()) {
         case "id":
           result.Id = attributeValue;
           break;
@@ -302,7 +285,10 @@ class PackageReader {
           break;
       }
     });
-    result.Content = metadataMetaNode.text;
+    // populate content only if no attribute had populated this value
+    if(result.Content == null || result.Content.isEmpty) {
+      result.Content = metadataMetaNode.text;
+    }
     return result;
   }
 
