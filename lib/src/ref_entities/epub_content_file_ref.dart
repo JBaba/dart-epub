@@ -10,9 +10,10 @@ import 'epub_book_ref.dart';
 
 abstract class EpubContentFileRef {
   EpubBookRef epubBookRef;
-
   String FileName;
-
+  String FileNameWithOutExt;
+  // archive file path
+  String FilePath;
   EpubContentType ContentType;
   String ContentMimeType;
   EpubContentFileRef(EpubBookRef epubBookRef) {

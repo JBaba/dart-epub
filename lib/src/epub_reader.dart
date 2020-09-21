@@ -32,6 +32,7 @@ class EpubReader {
         .toList();
     bookRef.Author = bookRef.AuthorList.join(", ");
     bookRef.Content = await ContentReader.parseContentMap(bookRef);
+    bookRef.Content.ImageFiles = await ContentReader.parseImages(bookRef, epubArchive);
     return bookRef;
   }
 

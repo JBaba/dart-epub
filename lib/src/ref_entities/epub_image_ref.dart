@@ -6,5 +6,6 @@ class EpubImageRef {
   EpubContentType ContentType;
   String ContentMimeType;
   images.Image image;
+  bool IsImageSearched = false;
   EpubImageRef();
 }

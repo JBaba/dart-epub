@@ -5,6 +5,8 @@ import '../ref_entities/epub_content_file_ref.dart';
 import '../ref_entities/epub_content_ref.dart';
 import '../ref_entities/epub_text_content_file_ref.dart';
 import '../schema/opf/epub_manifest_item.dart';
+import 'package:archive/archive.dart';
+import 'package:path/path.dart' as path;
 
 class ContentReader {
   static EpubContentRef parseContentMap(EpubBookRef bookRef) {
@@ -136,4 +138,65 @@ class ContentReader {
         return EpubContentType.OTHER;
     }
   }
+
+  static bool isImageFile(String ext) {
+    if (ext.toLowerCase() == ".png") {
+      return true;
+    }
+    if (ext.toLowerCase() == ".gif") {
+      return true;
+    }
+    if (ext.toLowerCase() == ".jpeg") {
+      return true;
+    }
+    if (ext.toLowerCase() == ".jpg") {
+      return true;
+    }
+    if (ext.toLowerCase() == ".svg") {
+      return true;
+    }
+    return false;
+  }
+
+  static Map<String, EpubByteContentFileRef> parseImages(EpubBookRef bookRef, Archive epubArchive) {
+    Map<String, EpubByteContentFileRef> Images =
+        Map<String, EpubByteContentFileRef>();
+    epubArchive.files.forEach((ArchiveFile archiveFile) {
+      String ext = path.extension(archiveFile.name);
+      if (isImageFile(ext)) {
+        String fileName = path.basename(archiveFile.name);
+        EpubByteContentFileRef epubByteContentFile =
+            EpubByteContentFileRef(bookRef);
+        epubByteContentFile.FileName = fileName;
+        epubByteContentFile.FileNameWithOutExt = path.basenameWithoutExtension(archiveFile.name);
+        epubByteContentFile.FilePath = archiveFile.name;
+        // file types
+        if (ext.toLowerCase() == ".png") {
+          epubByteContentFile.ContentType = EpubContentType.IMAGE_PNG;
+          epubByteContentFile.ContentMimeType = "image/png";
+        }
+        if (ext.toLowerCase() == ".gif") {
+          epubByteContentFile.ContentType = EpubContentType.IMAGE_GIF;
+          epubByteContentFile.ContentMimeType = "image/gif";
+        }
+        if (ext.toLowerCase() == ".jpeg") {
+          epubByteContentFile.ContentType = EpubContentType.IMAGE_JPEG;
+          epubByteContentFile.ContentMimeType = "image/jpeg";
+        }
+        if (ext.toLowerCase() == ".jpg") {
+          epubByteContentFile.ContentType = EpubContentType.IMAGE_JPG;
+          epubByteContentFile.ContentMimeType = "image/jpg";
+        }
+        if (ext.toLowerCase() == ".svg") {
+          epubByteContentFile.ContentType = EpubContentType.IMAGE_SVG;
+          epubByteContentFile.ContentMimeType = "image/svg+xml";
+        }
+        Images[path.basenameWithoutExtension(archiveFile.name)] = epubByteContentFile;
+      }
+    });
+    return Images;
+  }
+
+  static createEpubByteContentFile(
+      ArchiveFile archiveFile, EpubContentType epubContentType) {}
 }
